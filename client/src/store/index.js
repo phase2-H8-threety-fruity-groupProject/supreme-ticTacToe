@@ -5,8 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    messages: [],
+    board: []
   },
   mutations: {
+    setMessages (state, payload) {
+      state.messages = payload
+    }
   },
   actions: {
   },
