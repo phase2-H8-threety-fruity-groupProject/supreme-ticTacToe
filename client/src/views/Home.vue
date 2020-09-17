@@ -22,11 +22,13 @@
     <p v-for="(msg, i) in messages" :key="i">
       {{ msg.name }} : {{ msg.message }}
     </p>
+
+    <Board />
   </div>
 </template>
 
 <script>
-
+import Board from '../components/Board'
 export default {
   name: 'Home',
   data () {
@@ -58,6 +60,9 @@ export default {
   },
   created () {
     
+  },
+  components: {
+    Board
   }
 }
 </script>
