@@ -1,18 +1,63 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Testing socket io</h1>
+    <form @submit.prevent="sendMessage">
+      <label for="username">Your Name</label>
+      <input
+      id="username" 
+      type="text"
+      v-model="name"
+      placeholder="type your name here..."
+      autocomplete="off"
+      >
+      <input 
+      type="text"
+      v-model="message"
+      placeholder="type here..."
+      autocomplete="off"
+      >
+      <input type="submit" value="send">
+    </form>
+
+    <p v-for="(msg, i) in messages" :key="i">
+      {{ msg.name }} : {{ msg.message }}
+    </p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      name: '',
+      message: ''
+    }   
+  },
+  computed: {
+    messages () {
+      return this.$store.state.messages
+    }    
+  },
+  sockets: {
+    init (payload) {
+      this.$store.commit('setMessages', payload )
+    },
+    serverMessage (payload) {
+      let newMessages = [...this.messages, payload]
+      this.$store.commit('setMessages', newMessages)
+    }
+  },
+  methods: {
+    sendMessage () {
+      this.$socket.emit('newMessages', { message: this.message, name: this.name })
+      this.messages.push({ message: this.message, name: this.name })
+      this.message = ''
+    }
+  },
+  created () {
+    
   }
 }
 </script>
