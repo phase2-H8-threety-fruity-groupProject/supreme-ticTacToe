@@ -45,10 +45,6 @@ export default {
   sockets: {
     init (payload) {
       this.$store.commit('setMessages', payload )
-    },
-    serverMessage (payload) {
-      let newMessages = [...this.messages, payload]
-      this.$store.commit('setMessages', newMessages)
     }
   },
   methods: {
