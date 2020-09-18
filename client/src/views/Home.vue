@@ -118,7 +118,7 @@ export default {
             } else if(id === 9){
                 this.val9 = turn
             }
-            document.getElementById(id).style.pointerEvents = 'none' 
+            document.getElementById(id).style.pointerEvents = 'none'
             this.$socket.emit('newMessages', {
                  val1: this.val1, 
                  val2: this.val2,
