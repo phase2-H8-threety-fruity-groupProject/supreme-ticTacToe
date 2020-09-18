@@ -1,7 +1,7 @@
 <template>
-    <div class="mt-5">
-        <img src="../assets/icon.png">  
-        <h1>Let's Play Tic Tac Toe</h1> <br> <br>
+    <div class="mainpage"><br>
+        <img class="mt-5" src="../assets/icon.png">  
+        <h1>Let's Play Tic Tac Toe!</h1> <br> <br>
         <button @click.prevent="gameOn" class=" btn btn-lg btn-warning">I'm in!</button>
     </div>
 </template>
@@ -18,20 +18,13 @@ export default {
 </script>
 
 <style>
-*, *::after, *::before {
-    box-sizing: border-box;
-}
-body {
-    margin: 0;
-    padding: 0;
-}
 .mainpage {
     text-align: center;
     background-color: blueviolet;
-    height: 680px;
+    height: 672px;
 }
 .mainpage img {
-    width: 250px;
+    width: 500px;
 }
 .mainpage h1 {
     font-size: 45px ;
@@ -39,7 +32,7 @@ body {
     color: #ff9700;
 }
 .mainpage .btn {
-    font-size: 45px;
+    font-size: 30px;
     border: 1px solid blueviolet ;
     text-decoration: none;
     background-color: #ff9700;
@@ -53,52 +46,4 @@ body {
     color: black;
     cursor: pointer;
 }
-.playpage {
-    text-align: center;
-    background-color: blueviolet;
-    height: 680px;
-}
-.board {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: repeat(3, auto)
-  }
-  
-  .cell {
-    width: 120px;
-    height: 120px;
-    border: 2px solid black;
-    background-color: white;
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    font-size: 90px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-  .cell:hover{
-      border: 2px solid #ff9700;
-  }
-  .playpage h1 {
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-  }
-  .credit {
-    text-align: center;
-  }
-  .credit h1 {
-      font-size: 70px;
-      color: #ff9700;
-      font-family: Arial, Helvetica, sans-serif;
-  }
-  .credit p {
-      color: white;
-      font-size: 50px;
-      font-family: Arial, Helvetica, sans-serif;
-  }
-
 </style>
