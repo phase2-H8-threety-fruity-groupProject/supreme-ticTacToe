@@ -5,7 +5,8 @@ const io = require('socket.io')(server);
 const adminMessage = {
     name: 'Admin',
     message: 'Welcome to TicTacToe',
-    activePlayer: ''
+    activePlayer: '',
+    isWin: ''
 }
 
 
@@ -27,6 +28,7 @@ io.on('connect', function(socket) {
         else {
             adminMessage.activePlayer= players.player1
         }
+        adminMessage.isWin = payload.isWin
         payload.activePlayer = adminMessage.activePlayer        
         io.emit('serverMessage', payload)
     })
