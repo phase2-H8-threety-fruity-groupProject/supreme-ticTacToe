@@ -33,6 +33,33 @@ io.on('connect', function(socket) {
         io.emit('serverMessage', payload)
     })
 
+    socket.on('resetGame', function(payload){
+        players.player1 = ''
+        players.player2 = ''
+        adminMessage.message = 'Game Reset'
+        adminMessage.activePlayer =''
+        adminMessage.isWin=  ''
+
+        let data = {
+            val1: '', 
+            val2: '', 
+            val3: '', 
+            val4: '', 
+            val5: '', 
+            val6: '', 
+            val7: '', 
+            val8: '', 
+            val9: '', 
+            counterStep: 0,
+            isWin: false,
+            adminMessage: adminMessage
+        }
+        io.emit('resetMessage', data)
+
+    })
+
+    
+
     socket.on('submitPlayer', function(payload) {
         if (players.player1 === ''){        // kalo blm ada Player1
             players.player1 = payload.name

@@ -17,6 +17,8 @@
       </form>
     </div>
 
+    <a  v-if="activePlayer !== ''" @click.prevent="resetGame" > Reset </a>
+
 
     <!-- <Board /> -->
      <div  v-if="activePlayer !== ''" class="board" id="board">
@@ -74,6 +76,27 @@ export default {
     init (payload) {
       this.$store.commit('setMessages', payload )
     },
+    resetMessage (payload) {
+      this.val1 = payload.val1
+      this.val2 = payload.val2
+      this.val3 = payload.val3
+      this.val4 = payload.val4
+      this.val5 = payload.val5
+      this.val6 = payload.val6
+      this.val7 = payload.val7
+      this.val8 = payload.val8
+      this.val9 = payload.val9
+      this.counterStep = payload.counterStep
+      this.activePlayer = payload.activePlayer
+      this.isWin = payload.isWin
+      this.name= ''
+      this.submitedName= ''
+      this.activePlayer= ''
+      //console.log ( payload.adminMessage)
+      
+      this.$store.commit('resetMessages' )
+      this.$store.commit('setMessages', payload.adminMessage)
+    },
     serverMessage (payload) {
       //console.log(payload,'ini payload dari server message')
       this.val1 = payload.val1
@@ -95,6 +118,9 @@ export default {
     }
   },
   methods: {
+    resetGame(){
+      this.$socket.emit('resetGame')
+    },
     sendMessage () {
       this.$socket.emit('newMessages', { message: this.message, name: this.name })
       this.messages.push({ message: this.message, name: this.name })

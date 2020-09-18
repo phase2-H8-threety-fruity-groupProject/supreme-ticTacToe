@@ -10,6 +10,9 @@ export default new Vuex.Store({
   mutations: {
     setMessages (state, payload) {
       state.messages.push(payload)
+    },
+    resetMessages (state) {
+      state.messages = []
     }
   },
   actions: {
