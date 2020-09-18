@@ -87,6 +87,7 @@ export default {
       this.val9 = payload.val9
       this.counterStep = payload.counterStep
       this.activePlayer = payload.activePlayer
+      this.isWin = payload.isWin
     },
     adminMessage (payload) {
       this.activePlayer = payload.activePlayer
@@ -173,7 +174,8 @@ export default {
                     val7: this.val7,
                     val8: this.val8,
                     val9: this.val9,
-                    counterStep: this.counterStep
+                    counterStep: this.counterStep,
+                    isWin: this.isWin
                   }) 
               }
             }
