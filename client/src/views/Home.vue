@@ -61,7 +61,8 @@ export default {
       val6: '',
       val7: '',
       val8: '',
-      val9: '' 
+      val9: '',
+      isWin: false 
     }   
   },
   computed: {
@@ -103,49 +104,108 @@ export default {
       this.$socket.emit('submitPlayer', { name: this.name })
     },
     clicktombol (id) {
-            if (this.activePlayer === this.submitedName)
+            if (this.activePlayer === this.submitedName && this.isWin === false)
             {
-              this.counterStep++;
               let turn = ''
+              let flag = false
               if(this.counterStep %2 === 0 && turn === ''){
-                  turn = 'x'
+                  turn = this.activePlayer[0]
               } else {
-                  turn = 'o'
+                  turn = this.activePlayer[0]
               } 
-              if(id === 1){
+              if(id === 1 && this.val1 === ''){
                   this.val1 = turn
-              } else if(id === 2){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 2 && this.val2 === ''){
                   this.val2 = turn
-              } else if(id === 3){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 3 && this.val3 === ''){
                   this.val3 = turn
-              } else if(id === 4){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 4 && this.val4 === ''){
                   this.val4 = turn
-              } else if(id === 5){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 5 && this.val5 === ''){
                   this.val5 = turn
-              } else if(id === 6){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 6 && this.val6 === ''){
                   this.val6 = turn
-              } else if(id === 7){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 7 && this.val7 === ''){
                   this.val7 = turn
-              } else if(id === 8){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 8 && this.val8 === ''){
                   this.val8 = turn
-              } else if(id === 9){
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
+              } else if(id === 9 && this.val9 === ''){
                   this.val9 = turn
+                  flag = true
+                  this.counterStep++;
+                  this.winCheck()
               }
-              document.getElementById(id).style.pointerEvents = 'none' 
-
-              this.$socket.emit('newMessages', {
-                  val1: this.val1, 
-                  val2: this.val2,
-                  val3: this.val3,
-                  val4: this.val4,
-                  val5: this.val5,
-                  val6: this.val6,
-                  val7: this.val7,
-                  val8: this.val8,
-                  val9: this.val9,
-                  counterStep: this.counterStep
-              }) 
+              // document.getElementById(id).style.pointerEvents = 'none' 
+              // this.winCheck()
+              console.log(this.counterStep)
+              if(flag === true) {
+                this.$socket.emit('newMessages', {
+                    val1: this.val1, 
+                    val2: this.val2,
+                    val3: this.val3,
+                    val4: this.val4,
+                    val5: this.val5,
+                    val6: this.val6,
+                    val7: this.val7,
+                    val8: this.val8,
+                    val9: this.val9,
+                    counterStep: this.counterStep
+                  }) 
+              }
             }
+        },
+    winCheck() {
+      if(this.val1 === this.activePlayer[0] && this.val2 === this.activePlayer[0] && this.val3 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val4 === this.activePlayer[0] && this.val5 === this.activePlayer[0] && this.val6 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val7 === this.activePlayer[0] && this.val8 === this.activePlayer[0] && this.val9 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val1 === this.activePlayer[0] && this.val4 === this.activePlayer[0] && this.val7 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val2 === this.activePlayer[0] && this.val5 === this.activePlayer[0] && this.val8 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val3 === this.activePlayer[0] && this.val6 === this.activePlayer[0] && this.val9 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val1 === this.activePlayer[0] && this.val5 === this.activePlayer[0] && this.val9 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.val3 === this.activePlayer[0] && this.val5 === this.activePlayer[0] && this.val7 === this.activePlayer[0]) {
+        console.log(this.activePlayer + 'win')
+        this.isWin = true
+      } else if(this.counterStep === 9) {
+        console.log('draw')
+      }
         } 
   },
   created () {
