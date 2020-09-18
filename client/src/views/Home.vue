@@ -1,11 +1,11 @@
 <template>
-  <div class="home mt-5">
-    <h1>Supreme Tic Tac Toe</h1>
+  <div class="home playpage mt-5">
+    <h1><b>Supreme Tic Tac Toe</b></h1>
     <h1>{{ submitedName }}</h1>
     <h1 v-if="activePlayer !== ''">Sekarang Giliran : {{ activePlayer }}</h1>
     <div v-if="submitedName == ''">
       <form @submit.prevent="submitPlayer" class="mt-3">
-        <label for="username">Username</label>
+        <label for="username">Your name</label><br>
         <input
         id="username" 
         type="text"
@@ -14,14 +14,14 @@
         autocomplete="off"
         >
         <input type="submit" value="send">
-      </form>
+      </form><br>
     </div>
     <audio id="fightSound" src="../assets/audio/fight2.mp3"></audio>
     <audio id="clickSound" src="../assets/audio/button.mp3"></audio>
     <audio id="winSound" src="../assets/audio/applause2.mp3"></audio>
     <audio id="drawSound" src="../assets/audio/draw.mp3"></audio>
     <audio id="wrongSound" src="../assets/audio/wrong.mp3"></audio>
-    <a  v-if="activePlayer !== ''" @click.prevent="resetGame" > Reset </a>
+    <a v-if="activePlayer !== ''" @click.prevent="resetGame" > Reset </a>
 
 
     <!-- <Board /> -->
@@ -279,41 +279,6 @@ export default {
 </script>
 
 <style>
-*, *::after, *::before {
-    box-sizing: border-box;
-}
-body {
-    margin: 0;
-    padding: 0;
-}
-.mainpage {
-    text-align: center;
-    background-color: blueviolet;
-    height: 680px;
-}
-.mainpage img {
-    width: 250px;
-}
-.mainpage h1 {
-    font-size: 45px ;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #ff9700;
-}
-.mainpage .btn {
-    font-size: 45px;
-    border: 1px solid blueviolet ;
-    text-decoration: none;
-    background-color: #ff9700;
-    color: white;
-    padding: 10px;
-    border-radius: 7px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-.mainpage .btn:hover {
-    color: black;
-    cursor: pointer;
-}
 .playpage {
     text-align: center;
     background-color: blueviolet;
@@ -345,21 +310,19 @@ body {
       border: 2px solid #ff9700;
   }
   .playpage h1 {
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
+    font-size: 45px ;
+    font-family: Arial, Helvetica, sans-serif;
+    color:  #ff9700;
   }
-  .credit {
-    text-align: center;
+  .playpage label {
+    color: white;
   }
-  .credit h1 {
-      font-size: 70px;
-      color: #ff9700;
-      font-family: Arial, Helvetica, sans-serif;
+  .playpage p {
+    color: white;
   }
-  .credit p {
-      color: white;
-      font-size: 50px;
-      font-family: Arial, Helvetica, sans-serif;
+  .playpage a {
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
   }
-
 </style>
