@@ -5,12 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    messages: [],
-    board: []
+    messages: []
   },
   mutations: {
     setMessages (state, payload) {
-      state.messages = payload
+      state.messages.push(payload)
     }
   },
   actions: {
