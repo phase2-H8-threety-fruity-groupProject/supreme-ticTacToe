@@ -16,7 +16,11 @@
         <input type="submit" value="send">
       </form>
     </div>
-
+    <audio id="fightSound" src="../assets/audio/fight2.mp3"></audio>
+    <audio id="clickSound" src="../assets/audio/button.mp3"></audio>
+    <audio id="winSound" src="../assets/audio/applause2.mp3"></audio>
+    <audio id="drawSound" src="../assets/audio/draw.mp3"></audio>
+    <audio id="wrongSound" src="../assets/audio/wrong.mp3"></audio>
     <a  v-if="activePlayer !== ''" @click.prevent="resetGame" > Reset </a>
 
 
@@ -31,10 +35,6 @@
         <div @click.prevent="clicktombol(7)" class="cell" data-cell id=7 > {{val7}} </div>
         <div @click.prevent="clicktombol(8)" class="cell" data-cell id=8 > {{val8}} </div>
         <div @click.prevent="clicktombol(9)" class="cell" data-cell id=9 > {{val9}} </div>
-
-        <div>
-            <button @click="turnOnMusic()"></button>
-        </div>
     </div>
 
     
@@ -114,7 +114,24 @@ export default {
     },
     adminMessage (payload) {
       this.activePlayer = payload.activePlayer
+      if (payload.activePlayer){ 
+        document.getElementById('fightSound').play()
+      }
       this.$store.commit('setMessages', payload)
+    },
+    winnerMessage (payload) {
+      if (this.submitedName === payload.win) {
+        this.$swal('Congratulation You Win !!');
+        document.getElementById('winSound').play()
+      } else {
+        if (this.submitedName === payload.lose) {
+          this.$swal('You Lose !!');
+        }
+      }
+    },
+    drawMessage(){
+      this.$swal('Tied !!');
+      document.getElementById('drawSound').play()
     }
   },
   methods: {
@@ -190,6 +207,7 @@ export default {
               // this.winCheck()
               console.log(this.counterStep)
               if(flag === true) {
+                document.getElementById('clickSound').play()
                 this.$socket.emit('newMessages', {
                     val1: this.val1, 
                     val2: this.val2,
@@ -204,6 +222,15 @@ export default {
                     isWin: this.isWin
                   }) 
               }
+            } else {
+              if (this.isWin === true) {
+                this.$swal('Game Finished,\n please reset to play again');
+                document.getElementById('wrongSound').play()
+              } else {
+                this.$swal('This is not your turn !!');
+                document.getElementById('wrongSound').play()
+              }
+              
             }
         },
     winCheck() {
@@ -233,8 +260,14 @@ export default {
         this.isWin = true
       } else if(this.counterStep === 9) {
         console.log('draw')
+        this.$socket.emit('draw')
       }
-        } 
+
+      if(this.isWin === true){
+        this.$socket.emit('winner', { winner: this.activePlayer })
+      }
+      
+    } 
   },
   created () {
     

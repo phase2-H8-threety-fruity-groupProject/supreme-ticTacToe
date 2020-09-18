@@ -9,13 +9,10 @@ const adminMessage = {
     isWin: ''
 }
 
-
 let players = {
     player1: '',
     player2: ''
 }
-
-
 
 io.on('connect', function(socket) {
     console.log('client connected');
@@ -57,9 +54,7 @@ io.on('connect', function(socket) {
         io.emit('resetMessage', data)
 
     })
-
-    
-
+        
     socket.on('submitPlayer', function(payload) {
         if (players.player1 === ''){        // kalo blm ada Player1
             players.player1 = payload.name
@@ -69,10 +64,26 @@ io.on('connect', function(socket) {
             adminMessage.message = `Player 2 is served ==> ${players.player2}`            
             adminMessage.activePlayer = players.player1  // begitu 2 player udah ada. diset default yg maen dulu player1, ntr kl mau random ini di komen aja
         }
-        else {
-            adminMessage.message = `Player 1 =${players.player1} || Player 2 =${players.player2} Room is full, yang laen nonton aja yak!!`        }
+          else {
+            adminMessage.message = `Player 1 =${players.player1} || Player 2 =${players.player2} Room is full, yang laen nonton aja yak!!`
+        }
 
         io.emit('adminMessage', adminMessage)
+    })
+
+    socket.on('winner', function(payload){
+        let data = { win: payload.winner }
+        if(players.player1 === data.win){
+            data.lose = players.player2
+        } else {
+            data.lose = players.player1
+        }
+
+        io.emit('winnerMessage', data)
+    })
+
+    socket.on('draw', function(payload){
+        io.emit('drawMessage')
     })
 })
 
